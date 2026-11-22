@@ -4,8 +4,13 @@
 import { useState } from "react";
 import Link from "next/link";
 
+import { authClient } from "@/lib/auth-client";
+import { UserAvatar } from "@/components/user-avatar";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = authClient.useSession();
+  const isSignedIn = Boolean(session?.user);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -45,21 +50,27 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons / account avatar */}
           <div className="hidden md:flex items-center gap-4">
-            <a
-              href="/login"
-              className="text-sm font-semibold text-slate-800 hover:text-blue-600"
-            >
-              Sign In
-            </a>
+            {isSignedIn ? (
+              <UserAvatar />
+            ) : (
+              <>
+                <Link
+                  href="/sign-in"
+                  className="text-sm font-semibold text-slate-800 hover:text-blue-600"
+                >
+                  Sign In
+                </Link>
 
-            <a
-              href="/register"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl text-sm font-semibold transition"
-            >
-              Create Account
-            </a>
+                <Link
+                  href="/sign-up"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl text-sm font-semibold transition"
+                >
+                  Create Account
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -90,16 +101,32 @@ const Navbar = () => {
 
               <hr className="border-gray-100" />
 
-              <a href="/login" className="text-sm font-semibold text-slate-800">
-                Sign In
-              </a>
+              {isSignedIn ? (
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm font-semibold text-slate-800">
+                    Your account
+                  </span>
+                  <UserAvatar />
+                </div>
+              ) : (
+                <>
+                  <Link
+                    href="/sign-in"
+                    onClick={() => setIsOpen(false)}
+                    className="text-sm font-semibold text-slate-800"
+                  >
+                    Sign In
+                  </Link>
 
-              <a
-                href="/register"
-                className="bg-blue-600 text-white text-center px-5 py-3 rounded-xl text-sm font-semibold"
-              >
-                Create Account
-              </a>
+                  <Link
+                    href="/sign-up"
+                    onClick={() => setIsOpen(false)}
+                    className="bg-blue-600 text-white text-center px-5 py-3 rounded-xl text-sm font-semibold"
+                  >
+                    Create Account
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}

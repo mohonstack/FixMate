@@ -12,7 +12,7 @@ import {
 const Hero = () => {
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-2 lg:py-28">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-2 lg:py-8 lg:px-8">
 
         {/* Left Content */}
         <div>
@@ -45,7 +45,7 @@ const Hero = () => {
             </Link>
 
             <Link
-              href="/register"
+              href="/sign-up"
               className="rounded-xl border border-gray-200 px-7 py-4 font-semibold text-[#172B4D] transition hover:border-[#246BFD] hover:text-[#246BFD]"
             >
               Become a Technician

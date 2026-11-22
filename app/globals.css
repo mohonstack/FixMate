@@ -127,3 +127,40 @@
     @apply font-sans;
     }
 }
+
+/* Component layer so Tailwind utilities (e.g. `p-8`, `w-full`) still win. */
+@layer components {
+  /* Auth card shell used by the sign-in / sign-up pages. */
+  .surface-card {
+    border: 1px solid rgb(255 255 255 / 0.08);
+    border-radius: 1rem;
+    background: rgb(11 11 16 / 0.85);
+    box-shadow: 0 24px 60px rgb(0 0 0 / 0.45);
+    backdrop-filter: blur(12px);
+  }
+
+  /* Dark field background/border shared by the auth inputs. */
+  .surface-field {
+    border-color: rgb(255 255 255 / 0.1);
+    background-color: rgb(18 18 26 / 0.9);
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+
+  /* Brand gradient button (sign-in / sign-up submit). */
+  .btn-brand {
+    background-image: linear-gradient(180deg, #6c63ff 0%, #4f46e5 100%);
+    transition: filter 0.15s ease;
+  }
+  .btn-brand:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
+  .btn-brand:active:not(:disabled) {
+    filter: brightness(0.95);
+  }
+}
